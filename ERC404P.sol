@@ -399,14 +399,14 @@ interface Render {
   }
 
   function _erc20ToErc721(uint256 _amount) internal {
-        // 销毁erc20，_totalSuppoly减少，增加nft
+        
         require(balanceOf[msg.sender] >= _amount, "P404: insufficient balance");
         require(_amount >= TRANSFORM_PRICE, "P404: insufficient amount");
 
         uint256 nfts = _amount / TRANSFORM_PRICE;
         uint256 _realcost = nfts * TRANSFORM_PRICE;
 
-        // 销毁_realcost
+        
         _burnERC20(msg.sender, _realcost);
         for (uint256 i = 0; i < nfts; i++) {
             _retrieveOrMintERC721(msg.sender);
@@ -444,7 +444,7 @@ interface Render {
     }
 
     receive () external payable {
-        // 接收姨太并发放NFT，最多发放1500个NFT
+        
         require(msg.value >= mintPrice, "P404: invalid price");
         require(msg.sender == tx.origin, "P404: invalid sender");
         require(!_isContract(msg.sender), "P404: invalid sender - contract");
